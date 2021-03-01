@@ -1,0 +1,42 @@
+* {
+	font-family: 'Montserrat', sans-serif;
+}
+
+#nbcol {
+	background-color: #e8eaf6;
+}
+
+#ucol {
+	background-color: #e8eaf6;
+	padding: 10px 15px 10px 15px;
+}
+
+#slide-out {
+	margin-left: 35px;
+}
+
+#right-bar {
+	margin-right: 35px;
+}
+
+.left-content {
+	margin: 20px;
+	padding: 10px;
+	background-color: #e8eaf6;
+}
+
+.right-content {
+	margin: 10px;
+	padding: 10px;
+	background-color: #e8eaf6;
+}
+
+label {
+	font-weight: bold;
+	color: #616161;
+}
+
+::placeholder {
+	color: rgb(51, 48, 48);
+	opacity: 0.6;
+}
