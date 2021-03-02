@@ -28,7 +28,7 @@ public class DeleteNote extends HttpServlet {
     	Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String user="root";
 		boolean check=false;
 		String sql="SELECT * FROM notebook_db WHERE notebookName=?";
@@ -53,7 +53,7 @@ public class DeleteNote extends HttpServlet {
 		Connection con=null;
 		PreparedStatement ps=null;
 		String noteName=request.getParameter("noteName");
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String user="root";
 		HttpSession session=request.getSession();
 		String mail=(String)session.getAttribute("email");

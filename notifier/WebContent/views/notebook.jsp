@@ -21,7 +21,7 @@
     		Connection con=null;
     		PreparedStatement ps=null;
     		PreparedStatement ps2=null;
-    		String url="jdbc:mysql://localhost:3306/notifier";
+    		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
     		String user="root";
     		String sql="SELECT * from notebook_db where email=?";
    		%>

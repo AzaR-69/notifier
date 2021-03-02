@@ -32,7 +32,7 @@ public class newNote extends HttpServlet {
     	Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String user="root";
 		boolean check=false;
 		String sql="SELECT * FROM notebook_db WHERE notebookName=?";
@@ -52,7 +52,7 @@ public class newNote extends HttpServlet {
 		Connection con=null;
 		PreparedStatement ps=null;
 		HttpSession session=request.getSession();
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String user="root";
 		String sql="INSERT INTO notifier.newNote (email,notebookName,noteName,startDate,endDate,remainderDate,status,tag,description) VALUES(?,?,?,?,?,?,?,?,?)";
 		String mail=(String)session.getAttribute("email");

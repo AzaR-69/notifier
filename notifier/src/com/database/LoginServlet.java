@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 		boolean check = false;
 		Connection con = null;
 		PreparedStatement ps = null;
-		String url = "jdbc:mysql://localhost:3306/notifier";
+		String url = "jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String sql = "SELECT * FROM register WHERE email=? AND password=?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

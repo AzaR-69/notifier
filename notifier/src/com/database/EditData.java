@@ -40,7 +40,7 @@ public class EditData extends HttpServlet {
 		HttpSession session=request.getSession();
 		String mail=(String)session.getAttribute("email");
 		String sql="";
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String user="root";
 		int row=0;
 		try {

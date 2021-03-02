@@ -37,7 +37,7 @@ public class deleteNbook extends HttpServlet {
 		PreparedStatement ps=null;
 		HttpSession session=request.getSession();
 		String mail=(String)session.getAttribute("email");
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String sql="DELETE FROM notebook_db WHERE notebookName=? AND email=?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

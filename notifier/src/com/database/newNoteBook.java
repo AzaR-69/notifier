@@ -27,7 +27,7 @@ public class newNoteBook extends HttpServlet {
 		// TODO Auto-generated method stub
 		Connection con=null;
 		PreparedStatement ps=null;
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String user="root";
 		String sql="INSERT INTO notifier.notebook_db (email,notebookName) VALUES(?,?)";
 		HttpSession session=request.getSession();

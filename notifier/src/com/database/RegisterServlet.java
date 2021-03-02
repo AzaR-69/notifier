@@ -21,7 +21,7 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass1");
 		String passCheck = request.getParameter("pass2");
-		String url = "jdbc:mysql://localhost:3306/notifier";
+		String url = "jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String sql = "INSERT INTO notifier.register (userName,phoneNumber,email,password) VALUES (?,?,?,?)";
 		Connection con = null;
 		PreparedStatement ps = null;

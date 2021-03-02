@@ -32,7 +32,7 @@ public class editUser extends HttpServlet {
 		String mail=request.getParameter("email");
 		String pass=request.getParameter("pass");
 		String newPass=request.getParameter("newPass");
-		String url="jdbc:mysql://localhost:3306/notifier";
+		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
 		String user="root";
 		String sql="UPDATE register set userName=?,phoneNumber=?,password=? WHERE email=? AND password=?";
 		try {

@@ -22,7 +22,7 @@
                 <input type="password" name="pass2" placeholder="Confirm Password" required/><br>
                 <button type="submit">Submit</button>
             </form>
-            <p>Already a member? <a href="index.jsp">Click here</a></p>
+            <p>Already a member? <a href="../index.jsp">Click here</a></p>
         </div>
     </body>        
 </html>
