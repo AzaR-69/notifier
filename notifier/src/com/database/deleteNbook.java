@@ -41,7 +41,7 @@ public class deleteNbook extends HttpServlet {
 		String sql="DELETE FROM notebook_db WHERE notebookName=? AND email=?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection(url,"root","root");
+			con=DriverManager.getConnection(url, "root", "examly");
 			ps=con.prepareStatement(sql);
 			ps.setNString(1, notebookName);
 			ps.setNString(2, mail);

@@ -36,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			con = DriverManager.getConnection(url, "root", "root");
+			con = DriverManager.getConnection(url, "root", "examly");
 			ps = con.prepareStatement(sql);
 			ps.setString(1, uname);
 			ps.setString(2, no);

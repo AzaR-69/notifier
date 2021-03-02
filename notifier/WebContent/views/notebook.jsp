@@ -49,7 +49,7 @@
        
        <%try{
     		Class.forName("com.mysql.jdbc.Driver");
-    		con=DriverManager.getConnection(url,user,"root");
+    		con=DriverManager.getConnection(url, "root", "examly");
     		ps=con.prepareStatement(sql);
     		ps.setString(1,mail);
     		ResultSet rs=ps.executeQuery();

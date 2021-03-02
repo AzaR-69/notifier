@@ -36,7 +36,7 @@ public class newNoteBook extends HttpServlet {
 		PrintWriter out=response.getWriter();
 		try{
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-    		con=DriverManager.getConnection(url,user,"root");
+    		con=DriverManager.getConnection(url, "root", "examly");
     		ps=con.prepareStatement(sql);
     		ps.setString(1,mail);
     		ps.setString(2,noteName);

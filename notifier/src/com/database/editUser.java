@@ -37,7 +37,7 @@ public class editUser extends HttpServlet {
 		String sql="UPDATE register set userName=?,phoneNumber=?,password=? WHERE email=? AND password=?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection(url,user,"root");
+			con=DriverManager.getConnection(url, "root", "examly");
 			ps=con.prepareStatement(sql);
 			ps.setString(1,uname);
 			ps.setString(2, no);

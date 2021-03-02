@@ -45,7 +45,7 @@ public class EditData extends HttpServlet {
 		int row=0;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection(url,user,"root");
+			con=DriverManager.getConnection(url, "root", "examly");
 			if(option.equalsIgnoreCase("notebook")) {
 				sql="UPDATE notebook_db SET notebookName=? WHERE notebookName=? AND email=?";
 				ps=con.prepareStatement(sql);

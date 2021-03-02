@@ -34,7 +34,7 @@ public class DeleteNote extends HttpServlet {
 		String sql="SELECT * FROM notebook_db WHERE notebookName=?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection(url,user,"root");
+			con=DriverManager.getConnection(url, "root", "examly");
 			ps=con.prepareStatement(sql);
 			ps.setNString(1, notename);
 			rs=ps.executeQuery();
@@ -61,7 +61,7 @@ public class DeleteNote extends HttpServlet {
 		String sql="DELETE FROM newnote WHERE noteName=? AND email=?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection(url,user,"root");
+			con=DriverManager.getConnection(url, "root", "examly");
 			ps=con.prepareStatement(sql2);
 			ps.setString(1, noteName);
 			ps.setNString(2, mail);
