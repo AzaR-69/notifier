@@ -10,29 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.database.model.UserImplementation;
+
 import java.sql.*;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public static boolean validate(String email, String pass) {
+	public static boolean validate(String email, String pass) throws SQLException {
 		boolean check = false;
-		Connection con = null;
-		PreparedStatement ps = null;
-		String url = "jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
-		String sql = "SELECT * FROM register WHERE email=? AND password=?";
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(url, "root", "examly");
-			ps = con.prepareStatement(sql);
-			ps.setString(1, email);
-			ps.setString(2, pass);
-			ResultSet rs = ps.executeQuery();
-			check = rs.next();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		UserImplementation dao=new UserImplementation();
+		check=dao.loginValidate(email, pass);
 		return check;
 	}
 
@@ -41,19 +30,21 @@ public class LoginServlet extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
-		boolean result = validate(email, pass);
-		String msg = "";
+		boolean result=false;
+		try {
+		result = validate(email, pass);}
+		catch(Exception e) {e.printStackTrace();}
+		String errorMessage="";
 		if (result) {
 			HttpSession sus = request.getSession();
 			sus.setAttribute("email", email);
 			response.sendRedirect("views/dashboard.jsp");
 		} else {
 
-			msg = "Incorrect Credentials!";
-			request.setAttribute("message", msg);
+			errorMessage = "Incorrect Credentials!";
+			request.setAttribute("error", errorMessage);
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
-			// response.sendRedirect("index.jsp");
 		}
 
 	}

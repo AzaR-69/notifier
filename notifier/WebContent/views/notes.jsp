@@ -27,7 +27,7 @@
 			response.setHeader("Expires","0");
 			String mail=(String)session.getAttribute("email");
     		if(mail==null){
-    			response.sendRedirect("index.jsp");
+    			response.sendRedirect("../index.jsp");
     		}
    		%>
         <nav class="nav-wrapper indigo">  
@@ -60,7 +60,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="form-field">
-                                    <form action="../newNote?notebookName=<%=request.getParameter("notebk")%>" method="post">
+                                    <form action="${pageContext.request.contextPath}/newNote?notebookName=<%=request.getParameter("notebk")%>" method="post">
                                     	<!--label for="notename"> NoteBookName</label>
                                         <input type="text" name="notebookName" placeholder="NoteBook Name"-->
                                         <label for="notename"> NoteName</label>

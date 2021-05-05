@@ -1,8 +1,6 @@
 package com.database;
 
 import java.io.IOException;
-import java.sql.*;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,39 +8,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import com.database.model.UserImplementation;
+import com.database.model.User;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String uname = request.getParameter("userName");
-		String no = request.getParameter("number");
+		String userName = request.getParameter("userName");
+		String phoneNumber = request.getParameter("number");
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass1");
-		String passCheck = request.getParameter("pass2");
-		String url = "jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
-		String sql = "INSERT INTO notifier.register (userName,phoneNumber,email,password) VALUES (?,?,?,?)";
-		Connection con = null;
-		PreparedStatement ps = null;
+		String passCheck = request.getParameter("pass2");	
 		String msg = "";
-		RequestDispatcher rd = null;
+		String errorMessage="";
+		RequestDispatcher rd=null;
+		int n=0;
 		if (!(pass.equals(passCheck))) {
-			msg = "Both passwords must be same!";
-			request.setAttribute("message", msg);
+			errorMessage = "Both passwords must be same!";
+			request.setAttribute("error", errorMessage);
 			rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
-			// response.sendRedirect("signuperror.jsp");
 		}
 		try {
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			con = DriverManager.getConnection(url, "root", "examly");
-			ps = con.prepareStatement(sql);
-			ps.setString(1, uname);
-			ps.setString(2, no);
-			ps.setString(3, email);
-			ps.setString(4, pass);
-			int n = ps.executeUpdate();
+			UserImplementation dao=new UserImplementation();
+			n=dao.add(new User(userName,phoneNumber,email,pass));
 			if (n > 0) {
 				msg = "Account created successfully!";
 				request.setAttribute("message", msg);

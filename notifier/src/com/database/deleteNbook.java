@@ -10,56 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.sql.*;
+import com.notebook.model.NotebookImplementation;
 
-/**
- * Servlet implementation class deleteNbook
- */
 @WebServlet("/deleteNbook")
 public class deleteNbook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public deleteNbook() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private static NotebookImplementation nbi = new NotebookImplementation();
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String notebookName=request.getParameter("notebookName");
-		Connection con=null;
-		PreparedStatement ps=null;
-		HttpSession session=request.getSession();
-		String mail=(String)session.getAttribute("email");
-		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
-		String sql="DELETE FROM notebook_db WHERE notebookName=? AND email=?";
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String notebookName = request.getParameter("notebookName");
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection(url, "root", "examly");
-			ps=con.prepareStatement(sql);
-			ps.setNString(1, notebookName);
-			ps.setNString(2, mail);
-			int row=ps.executeUpdate();
-			if(row>0) {
-				sql="DELETE FROM newnote WHERE notebookName=? AND email=?";
-				ps=con.prepareStatement(sql);
-				ps.setNString(1, notebookName);
-				ps.setNString(2, mail);
-				ps.executeUpdate();
+			int row = nbi.deleteNotebook(notebookName, email);
+			if (row > 0) {
+				nbi.deleteNotes(notebookName, email);
 				response.sendRedirect("views/notebook.jsp");
-			}
-			else {
-				PrintWriter out=response.getWriter();
+			} else {
+				PrintWriter out = response.getWriter();
 				out.println("Incorrect notebook name");
 			}
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

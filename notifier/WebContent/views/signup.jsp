@@ -14,7 +14,7 @@
             <h2>Sign Up</h2>
             <%if(msg!=null){ %>
             <h2 style="color: red;"><%=msg %></h2><%} %>
-            <form action="../RegisterServlet" method="post">
+            <form action="${pageContext.request.contextPath}/RegisterServlet" method="post">
                 <input type="text" name="userName" placeholder="Username" required/><br>
                 <input type="text" name="number" placeholder="Mobile Number" required/><br>
                 <input type="email" name="email" placeholder="Email" required/><br>

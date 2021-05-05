@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.sql.*;
+import com.notebook.model.Notebook;
+import com.notebook.model.NotebookImplementation;
+
 /**
  * Servlet implementation class newNoteBook
  */
@@ -24,24 +26,14 @@ public class newNoteBook extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Connection con=null;
-		PreparedStatement ps=null;
-		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
-		String user="root";
-		String sql="INSERT INTO notifier.notebook_db (email,notebookName) VALUES(?,?)";
 		HttpSession session=request.getSession();
 		String mail=(String)session.getAttribute("email");
 		String noteName=request.getParameter("nbname");
 		PrintWriter out=response.getWriter();
 		try{
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-    		con=DriverManager.getConnection(url, "root", "examly");
-    		ps=con.prepareStatement(sql);
-    		ps.setString(1,mail);
-    		ps.setString(2,noteName);
-    		int row=ps.executeUpdate();
-    		if(row>0) {
+			NotebookImplementation dao=new NotebookImplementation();
+			int n=dao.addNotebook(new Notebook(mail,noteName));
+    		if(n>0) {
     			response.sendRedirect("views/notebook.jsp");
     		}
     		

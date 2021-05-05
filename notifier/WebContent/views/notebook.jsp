@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.sql.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*,java.sql.*,com.notebook.model.NotebookImplementation,com.notebook.model.Notebook"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,14 +16,11 @@
 			response.setHeader("Expires","0");
 			String mail=(String)session.getAttribute("email");
     		if(mail==null){
-    			response.sendRedirect("index.jsp");
+    			response.sendRedirect("../index.jsp");
     		}
-    		Connection con=null;
-    		PreparedStatement ps=null;
-    		PreparedStatement ps2=null;
-    		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
-    		String user="root";
-    		String sql="SELECT * from notebook_db where email=?";
+    		NotebookImplementation nbi=new NotebookImplementation();
+    		List<Notebook> notebooks=nbi.getNotebooks(mail);
+    		boolean check=false;
    		%>
         <nav class="nav-wrapper indigo">   
             <div>
@@ -48,23 +45,17 @@
        <h4 style="margin-left:30px;">NoteBooks</h4>
        
        <%try{
-    		Class.forName("com.mysql.jdbc.Driver");
-    		con=DriverManager.getConnection(url, "root", "examly");
-    		ps=con.prepareStatement(sql);
-    		ps.setString(1,mail);
-    		ResultSet rs=ps.executeQuery();
-    		boolean check=rs.next();
-    		if(!check){%>
+    		check=notebooks.isEmpty();
+    		if(check){%>
     			<h5 style="text-align:center">No notebook is created</h5>
     			<h6 style="text-align:center"><a href="newnotebook.jsp">Create one by clicking here</a></h6>
     		<%}
     		else{
-    			rs=ps.executeQuery();
-    			while(rs.next()){
-    			String nName=rs.getString("notebookName");
+    			for(Notebook nb:notebooks){
+    			String notebookName=nb.getNotebookName();
     			//HttpSession sus=request.getSession();
     			//session.setAttribute("NotebookName",nName);
-    			int count=rs.getInt("count");
+    			int count=nb.getCount();
     			%>	
     			<div class="container" id="nbcol">
             	<div class="row">
@@ -72,13 +63,13 @@
                     	<div class="card">
                         	<div class="card-content">
                             <ul class="right">
-                                <li><a href="editData.jsp?noteBook=<%=nName%>"><i class="fas fa-edit"></i>&nbsp;Edit</a></li>
-                                <li><a href="../deleteNbook?notebookName=<%=nName%>"><i class="fas fa-trash"></i>&nbsp;Delete</a></li>
+                                <li><a href="editData.jsp?noteBook=<%=notebookName%>"><i class="fas fa-edit"></i>&nbsp;Edit</a></li>
+                                <li><a href="${pageContext.request.contextPath}/deleteNbook?notebookName=<%=notebookName%>"><i class="fas fa-trash"></i>&nbsp;Delete</a></li>
                             </ul>
                             <!-- form action="newnote.jsp">
-                            <input type="submit" class="btn blue lighten-5 waves-effect waves-light blue-text" name="notebk" value="<%=nName%>">
+                            <input type="submit" class="btn blue lighten-5 waves-effect waves-light blue-text" name="notebk" value="<%=notebookName%>">
                             </form-->
-                            <span class="card-title"><a href="newnote.jsp?notebk=<%=nName%>"><b><%=nName%></b></a></span>
+                            <span class="card-title"><a href="newnote.jsp?notebk=<%=notebookName%>"><b><%=notebookName%></b></a></span>
                             <p><b>No of notebooks:</b> <%=count %></p>
                         	</div>
                     	</div>

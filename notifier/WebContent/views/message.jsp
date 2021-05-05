@@ -26,7 +26,7 @@
 	response.setHeader("Expires", "0");
 	String mail = (String) session.getAttribute("email");
 	if (mail == null) {
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("../index.jsp");
 	}
 	%>
 	<nav class="nav-wrapper indigo">

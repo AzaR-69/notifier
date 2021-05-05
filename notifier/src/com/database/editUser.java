@@ -8,43 +8,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
 
-/**
- * Servlet implementation class editUser
- */
+import com.database.model.User;
+import com.database.model.UserImplementation;
+
+
 @WebServlet("/editUser")
 public class editUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public editUser() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		String uname=request.getParameter("userName");
-		String no=request.getParameter("number");
-		String mail=request.getParameter("email");
-		String pass=request.getParameter("pass");
-		String newPass=request.getParameter("newPass");
-		String url="jdbc:mysql://localhost:3306/notifier?allowPublicKeyRetrieval=true&useSSL=false";
-		String user="root";
-		String sql="UPDATE register set userName=?,phoneNumber=?,password=? WHERE email=? AND password=?";
+		UserImplementation dao=new UserImplementation();
+		User user=new User();
+		String userName=request.getParameter("userName");
+		String phoneNumber=request.getParameter("number");
+		String email=request.getParameter("email");
+		String password=request.getParameter("pass");
+		String newPassword=request.getParameter("newPass");
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setPhoneNumber(phoneNumber);
+		user.setUserName(userName);
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection(url, "root", "examly");
-			ps=con.prepareStatement(sql);
-			ps.setString(1,uname);
-			ps.setString(2, no);
-			ps.setNString(3, newPass);
-			ps.setString(4, mail);
-			ps.setString(5, pass);
-			int row=ps.executeUpdate();
+			int row=dao.update(user, newPassword);
 			if(row>0) {
 				response.sendRedirect("views/dashboard.jsp");
 			}

@@ -24,7 +24,7 @@
 			response.setHeader("Expires","0");
 			String mail=(String)session.getAttribute("email");
     		if(mail==null){
-    			response.sendRedirect("index.jsp");
+    			response.sendRedirect("../index.jsp");
     		}
    		%>
         <nav class="nav-wrapper indigo"> 
@@ -59,7 +59,7 @@
 							<div class="card-content">
 								<div class="form-field">
 									<form
-										action="../EditData?oldname=<%=request.getParameter("noteBook")%>"
+										action="${pageContext.request.contextPath}/EditData?oldname=<%=request.getParameter("noteBook")%>"
 										method="post">
 										<div class="radio">
 											<p style="font-size: large;">Choose which one you want to

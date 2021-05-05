@@ -28,7 +28,7 @@
 			response.setHeader("Expires","0");
 			String mail=(String)session.getAttribute("email");
     		if(mail==null){
-    			response.sendRedirect("index.jsp");
+    			response.sendRedirect("../index.jsp");
     		}
    		%>
         <nav class="nav-wrapper indigo">  
@@ -66,7 +66,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="form-field">
-                                    <form action="../editUser" method="post">
+                                    <form action="${pageContext.request.contextPath}/editUser" method="post">
                                         <label for="userName"> Username</label>
                                         <input type="text" name="userName" placeholder="Username" required>
                                         <label for="number"> Number</label>
